@@ -40,3 +40,14 @@ class ProductForm(forms.ModelForm):
     #     if og_price <= 0:
     #         raise forms.ValidationError("The original price must be a positive number.")
     #     return og_price
+
+
+class ProductUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['image', 'name', 'handle', 'price']
+ 
+    def __init__(self, *args,**kwargs):
+        super().__init__(*args,**kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class']=input_css_class

@@ -4,63 +4,49 @@
 
 <div class="flex flex-col md:flex-row mx-10">
     <!-- main content -->
-    <div class="w-full md:w-2/4 ">
-        
-    <h2 class="text-4xl font-bold dark:text-white">{{object.name}}</h2>
+    <div class="w-full md:w-3/4 ">
 
-    
-<p class="mb-3 text-gray-500 dark:text-gray-400 first-line:uppercase first-line:tracking-widest first-letter:text-7xl first-letter:font-bold first-letter:text-gray-900 dark:first-letter:text-gray-100 first-letter:me-3 first-letter:float-start">Track work across the enterprise through an open, collaborative platform. Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have richer contextual information to rapidly respond to requests, incidents, and changes.</p>
-<p class="text-gray-500 dark:text-gray-400">Deliver great service experiences fast - without the complexity of traditional ITSM solutions.Accelerate critical development work, eliminate toil, and deploy changes with ease, with a complete audit trail for every change.</p>
+        <h2 class="text-4xl font-bold dark:text-white">{{object.name}}</h2>
+
+
+        <p
+            class="mb-3 text-gray-500 dark:text-gray-400 first-line:uppercase first-line:tracking-widest first-letter:text-7xl first-letter:font-bold first-letter:text-gray-900 dark:first-letter:text-gray-100 first-letter:me-3 first-letter:float-start">
+            Track work across the enterprise through an open, collaborative platform. Link issues across Jira and ingest
+            data from other software development tools, so your IT support and operations teams have richer contextual
+            information to rapidly respond to requests, incidents, and changes.</p>
+        <p class="text-gray-500 dark:text-gray-400">Deliver great service experiences fast - without the complexity of
+            traditional ITSM solutions.Accelerate critical development work, eliminate toil, and deploy changes with
+            ease, with a complete audit trail for every change.</p>
 
 
     </div>
     <!-- side content -->
-    <div class="w-full md:w-2/4 ">
+    <div class="w-full md:w-1/4 ">
         <div class="flex items-baseline text-gray-900 dark:text-white">
             <span class="text-3xl font-semibold">$</span>
             <span class="text-5xl font-extrabold tracking-tight">49</span>
             <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
-            </div>
-        <button type="button" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">BUY NOW</button>
-
+        </div>
+        <button type="button"
+            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">BUY
+            NOW</button>
+        {%if object.image%}
         <div class="grid gap-4 ">
             <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt="">
-            </div>
-            <div class="grid grid-cols-5 gap-4">
-                <div>
-                    <img class="h-auto max-w-full rounded-lg"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="">
-                </div>
+                <img class="h-auto max-w-full rounded-lg" src="{{object.image.url}}" alt="{{object.name}}">
             </div>
         </div>
+        {% endif %}
         <br>
         {% if form %}
         <div>
-            <form method="post" action=".">
+            <form method="post" action="." enctype="multipart/form-data">
                 <h2>Update product</h2>
                 {% csrf_token %}
-                    {{ form.as_p }} 
-                    <br> 
-                    <button type="submit" class="btn-submit">Submit</button>
-                    
+                {{ form.as_p }}
+                <br>
+                <button type="submit" class="btn-submit">Submit</button>
+
             </form>
         </div>
     </div>
