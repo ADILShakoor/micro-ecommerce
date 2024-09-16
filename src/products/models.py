@@ -26,3 +26,6 @@ class Product(models.Model):
             self.price_changed_stamp=timezone.now()
         super().save(*args,**kwargs)
 
+    def get_absolute_url(self):
+        return f"/products/{self.handle}/"
+
