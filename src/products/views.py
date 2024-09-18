@@ -1,7 +1,9 @@
+import mimetypes
+from django.http import FileResponse,HttpResponseBadRequest
 
 from django.shortcuts import render, redirect,get_object_or_404
 from .forms import ProductForm,ProductUpdateForm
-from .models import Product
+from .models import Product,ProductAttachment
 
 def create_product_view(request):
     context={}
@@ -38,3 +40,18 @@ def product_detail_view(request,handle=None):
             # form.add_error(None,"you must be  loggded in to enter products ")
         context['form']=form
     return render (request,'products/detail.html',context)
+def product_attachment_download_view(request,handle=None,pk=None):
+    attachment=get_object_or_404( ProductAttachment,product__handle=handle,pk=pk)
+    can_download=attachment.is_free or False
+    if request.user.is_authenticated:
+        can_download=True
+    if can_download is False:
+        return HttpResponseBadRequest()
+    file=attachment.file.open(mode='rb')
+    filename=attachment.file.name
+    content_type,_ =mimetypes.guess_type(filename)
+    response=FileResponse(file)
+    response['Content_Type']=content_type or 'application/octet_stream'
+    response['Content-Disposition']=f'attchment;filename={filename}'
+    return response
+
