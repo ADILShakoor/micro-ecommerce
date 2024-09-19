@@ -17,12 +17,21 @@ class Product(models.Model):
     price=models.DecimalField(max_digits=10,decimal_places=2,default=9.99)
     og_price=models.DecimalField(max_digits=10,decimal_places=2,default=9.99)
     # strip_price_id=
-    # stripe_price =models.IntegerField(default=999)
+    stripe_price =models.IntegerField(default=999)
     price_changed_stamp=models.DateTimeField(auto_now=False,auto_now_add=False,blank=True,null=True)
     timestamp=models.DateTimeField(auto_now_add=True)
     update=models.DateTimeField(auto_now=True)
 
+    @property
+    def display_name(self):
+        return self.name
+    @property
+    def display_price(self):
+        return self.price
 
+    def __str__(self) -> str:
+        return self.display_name
+    
     def save(self,*args,**kwargs):
         if self.price !=self.og_price:
             # price change
