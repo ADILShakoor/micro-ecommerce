@@ -41,9 +41,19 @@ def product_manage_detail_view(request,handle=None):
         instance.save()
         formset.save(commit=False)
         for _form in formset:
-            attachments_obj=_form.save(commit=False)
-            attachments_obj.product=instance
-            attachments_obj.save()
+            is_delete=_form.cleaned_data.get("DELETE")
+            try:
+              attachments_obj=_form.save(commit=False)
+            except:
+                attachments_obj =None
+            if is_delete:
+                if attachments_obj is not None:
+                    if attachments_obj.pk:
+                        attachments_obj.delete()
+            else:
+                if attachments_obj is not None:
+                   attachments_obj.product=instance
+                   attachments_obj.save()
         return redirect(obj.get_manage_url())
         # form.add_error(None,"you must be  loggded in to enter products ")
     context['form']=form

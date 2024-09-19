@@ -72,7 +72,7 @@ ProductAttachmentModelFormSet = modelformset_factory(
     form=ProductAttachmentForm,
     fields=['file','name','is_free','active'],
     extra=0,
-    can_delete=False
+    can_delete=True
 )
 
 ProductAttachmentInlineFormSet = inlineformset_factory(
@@ -82,5 +82,5 @@ ProductAttachmentInlineFormSet = inlineformset_factory(
     formset=ProductAttachmentModelFormSet,
     fields=['file','name','is_free','active'],
     extra=0,
-    can_delete=False
+    can_delete=True
 )

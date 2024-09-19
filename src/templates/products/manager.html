@@ -3,18 +3,60 @@
 
 <form method="post" class="form-container" action="." enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="child1">
+    <!-- <div class="child1"> -->
+    <div>
     {{ form.as_p }}
+    </div>
     <br>
     <!-- {{formset}} -->
-     {{formset.management_form}}
     <div>
+     {{formset.management_form}}
+    <div id="attachments">
         {% for form in formset %}
+        <div>
          {{ form.as_p }}
+        </div>
          {% endfor %}
+        </div>
     </div>
     <br>
-    <button type="submit" class="btn-submit">Submit</button>
-    </div>
+    <button id="add-attachment-btn" class="btn-submit mt-2" >Add Attachment</button>
+    <button type="submit" class="btn-submit">Save</button>
+    <!-- </div> -->
 </form>
+<div class="hidden" id="blank-form">
+       {{formset.empty_form}}
+</div>
+<script>
+    const blankFormEl=document.querySelector("#blank-form")
+    const attachmentContainer=document.querySelector("#attachments")
+    const addAttachmentBtn=document.querySelector("#add-attachment-btn")
+    const managementFormInputEl=document.querySelector("#id_form-TOTAL_FORMS")
+    addAttachmentBtn.addEventListener("click", handleAttechmentBthClick)
+        function cloneBlackForm() {
+            if (blankFormEl) {
+                const newBlankForm=blankFormEl.cloneNode(true)
+                const totalFormValue=parseInt(managementFormInputEl.value)
+                var formRegex=new RegExp(`__prefix__`,'g');
+                newBlankForm.innerHTML=newBlankForm.innerHTML.replace(formRegex,totalFormValue)
+                managementFormInputEl.value=totalFormValue+1
+                newBlankForm.classList.add("attachment-form")
+                newBlankForm.classList.remove("hidden")
+                newBlankForm.removeAttribute("id")
+
+                //console.log(newBlankForm)
+                return newBlankForm
+                
+            }
+            
+        }
+        function handleAttechmentBthClick(event){
+            if(event){
+                event.preventDefault()
+            }
+            const newForm=cloneBlackForm()
+            attachmentContainer.appendChild(newForm)
+
+        }
+</script>
 {% endblock %}
