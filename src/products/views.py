@@ -34,7 +34,7 @@ def product_manage_detail_view(request,handle=None):
         return HttpResponseBadRequest()
     form=ProductUpdateForm(request.POST or None,request.FILES or None, instance=obj)
     formset=ProductAttachmentInlineFormSet(request.POST or None,request.FILES or None,queryset=attachments)
-    if form.is_valid() and formset:
+    if form.is_valid() and formset.is_valid():
         instance=form.save(commit=False)
         # if request.user.is_authenticated:
         #     obj.user=request.user
@@ -42,6 +42,7 @@ def product_manage_detail_view(request,handle=None):
         formset.save(commit=False)
         for _form in formset:
             is_delete=_form.cleaned_data.get("DELETE")
+            # is_delete=_form.changed_data.get("DELETE")
             try:
               attachments_obj=_form.save(commit=False)
             except:
