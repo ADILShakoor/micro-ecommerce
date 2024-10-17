@@ -128,6 +128,8 @@ STATIC_ROOT=BASE_DIR.parent/"local-cdn"/"static"
 MEDIA_URL="media/"
 MEDIA_ROOT=BASE_DIR.parent/"local-cdn"/"media"
 PROTECTED_MEDIA_ROOT=BASE_DIR.parent/"local-cdn"/"protected"
+# s3 for object storages
+from cfehome.storages.conf import *
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

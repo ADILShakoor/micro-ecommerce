@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
+from cfehome.storages.backends import ProtectedFileStorage
 from cfehome.env import config
 
 
@@ -14,6 +15,7 @@ stripe.api_key=STRIPE_SECRIT_KEY
 
 # Create your models here.
 PROTECTED_MEDIA_ROOT= settings.PROTECTED_MEDIA_ROOT
+# protected_storage =ProtectedFileStorage()
 protected_storage = FileSystemStorage(location=str(PROTECTED_MEDIA_ROOT))
 
 class Product(models.Model):
